@@ -2,6 +2,23 @@
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      // Early suppression of cross-origin nested iframe ("Script error.") messages
+      window.onerror = function (msg, url, line, col, error) {
+        if (msg === "Script error." || !url || url.includes("maps.google.com") || url.includes("googleapis.com")) {
+          return true; // Suppress error propagation
+        }
+        return false;
+      };
+      window.addEventListener("unhandledrejection", function (event) {
+        const reason = event.reason;
+        const msg = (reason && reason.message) || "";
+        if (msg.includes("Script error.") || msg.includes("maps.google.com")) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }, true);
+    </script>
     <link rel="icon" type="image/svg+xml" href="/src/assets/vinyl.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Brutal & Red Records</title>
@@ -18,8 +35,8 @@
         padding: 0;
       }
     </style>
-    <script type="module" crossorigin src="/brutal-i-red-records/assets/index-By8GeY7W.js"></script>
-    <link rel="stylesheet" crossorigin href="/brutal-i-red-records/assets/index-D5Vo5Z5w.css">
+    <script type="module" crossorigin src="/assets/index-DTNIqfV1.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BSdQREfC.css">
   </head>
   <body class="bg-[#050505] text-zinc-100 antialiased font-sans">
     <div id="root"></div>
